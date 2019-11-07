@@ -1,0 +1,13 @@
+{
+  "devDependencies": {
+    "@vuepress/plugin-nprogress": "^1.0.0-rc.1",
+    "vuepress": "^1.2.0"
+  },
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
+  },
+  "dependencies": {
+    "vuepress-theme-reco": "^1.1.1"
+  }
+}
