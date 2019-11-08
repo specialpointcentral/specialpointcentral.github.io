@@ -6,6 +6,8 @@ install:
 script:
   - npm run docs:build
   - cp CNAME docs/.vuepress/dist/CNAME
+  - ls docs/.vuepress/dist/
+  - cat docs/.vuepress/dist/CNAME
 deploy:
   provider: pages
   skip-cleanup: true
