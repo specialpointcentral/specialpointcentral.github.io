@@ -9,9 +9,41 @@ tags:
  - Markdown
 ---
 
-这个是第一个 VuePress 文章， VuePress 是通过 Markdown 生成静态页面，它的诞生初衷是为了支持 Vue 及其子项目的文档需求。
+这个是第一个 VuePress 文章， VuePress 可以将 Markdown 生成静态页面，它的诞生初衷是为了支持 Vue 及其子项目的文档需求。
+
+这篇文章介绍了 VuePress 中 Markdown 的拓展
+
+<!-- more -->
 
 ## Markdown 拓展
+
+## 添加摘要
+
+在 Markdown 代码中，使用`<!-- more -->`，注释前面的代码将显示在列表页面上的文章摘要中。
+
+```
+---
+title: VuePress 中 Markdown 的拓展
+date: 2019-11-08 10:12:00
+sidebar: 'auto'
+categories:
+ - VuePress
+tags:
+ - VuePress
+ - Markdown
+---
+
+这个是第一个 VuePress 文章， VuePress 可以将 Markdown 生成静态页面，它的诞生初衷是为了支持 Vue 及其子项目的文档需求。
+
+这篇文章介绍了 VuePress 中 Markdown 的拓展
+
+<!-- more -->
+
+## Markdown 拓展
+
+## 添加摘要
+
+```
 
 ### Header Anchors
 
@@ -405,7 +437,7 @@ export default {
 
 如果你的模块通过 `export default` 导出一个 Vue 组件，那么你可以动态注册它：
 
-```vue
+``` vue
 <template>
   <component v-if="dynamicComponent" :is="dynamicComponent"></component>
 </template>
