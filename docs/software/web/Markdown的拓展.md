@@ -35,13 +35,13 @@ tags:
 
 这个是第一个 VuePress 文章， VuePress 可以将 Markdown 生成静态页面，它的诞生初衷是为了支持 Vue 及其子项目的文档需求。
 
-这篇文章介绍了 VuePress 中 Markdown 的拓展
+这篇文章介绍了 VuePress 中 Markdown 的拓展。
 
 <!-- more -->
 
 ## Markdown 拓展
 
-## 添加摘要
+### 添加摘要
 
 ```
 
