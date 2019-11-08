@@ -39,7 +39,7 @@ function integrateGitalk(router) {
             repo: 'specialpointcentral.github.io',
             owner: 'specialpointcentral',
             admin: ['specialpointcentral'],
-            id: md5(location.pathname),
+            id: (fullPath),
             title: document.title,
             body: '文章链接：' + decodeURIComponent(location.origin + location.pathname),
             distractionFreeMode: false,

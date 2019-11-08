@@ -342,14 +342,14 @@ module.exports = {
 **输入**
 
 ```
-<<< @/../@vuepress/markdown/__tests__/fragments/snippet.js{2}
+<<< @/docs/software/web/__tests__/snippet.js{2}
 ```
 
 **输出**
 
 <!--lint disable strong-marker-->
 
-<<< @/../@vuepress/markdown/__tests__/fragments/snippet.js{2}
+<<< @/docs/software/web/__tests__/snippet.js{2}
 
 <!--lint enable strong-marker-->
 
