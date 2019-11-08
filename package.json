@@ -8,6 +8,7 @@
     "docs:build": "vuepress build docs"
   },
   "dependencies": {
+    "md5": "^2.2.1",
     "vuepress-theme-reco": "^1.1.1"
   }
 }

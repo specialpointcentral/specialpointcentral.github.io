@@ -33,13 +33,14 @@ function integrateGitalk(router) {
         }
     }
     function renderGitalk(fullPath) {
+        var md5 = require('md5');
         const gitalk = new Gitalk({
             clientID: 'bafa9288f91f1259ba98',
             clientSecret: '3f81ac450bbbb87a6dd22207b31b96393fefa58c',
             repo: 'specialpointcentral.github.io',
             owner: 'specialpointcentral',
             admin: ['specialpointcentral'],
-            id: (fullPath),
+            id: md5(fullPath),
             title: document.title,
             body: '文章链接：' + decodeURIComponent(location.origin + location.pathname),
             distractionFreeMode: false,
