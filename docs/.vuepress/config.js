@@ -38,5 +38,18 @@ module.exports = {
     // 项目开始时间，只填写年份
     startYear: '2019',
   },
-  plugins: ['@vuepress/nprogress']
+  plugins: [
+    ['@vuepress/nprogress'],
+    // ['@vuepress-reco/comments', {
+    //   solution: 'vuess',
+    //   options: {
+    //     title: 'vuepress-theme-reco',
+    //     platform: 'github-v4',
+    //     owner: 'specialpointcentral',
+    //     repo: 'specialpointcentral.github.io',
+    //     clientId: 'bafa9288f91f1259ba98',
+    //     clientSecret: '3f81ac450bbbb87a6dd22207b31b96393fefa58c',
+    //   }
+    // }]
+  ]
 }
