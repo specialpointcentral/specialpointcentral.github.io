@@ -42,7 +42,7 @@ function integrateGitalk(router) {
             admin: ['specialpointcentral'],
             id: md5(fullPath),
             title: document.title,
-            body: '文章链接：' + decodeURIComponent(location.origin + location.pathname),
+            body: '文章链接：' + decodeURIComponent(location.origin + location.pathname) + "Mark:" + fullPath,
             distractionFreeMode: false,
             language: 'zh-CN',
         });
