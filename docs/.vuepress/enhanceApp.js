@@ -28,7 +28,7 @@ function integrateGitalk(router) {
         if ($page) {
             $page.appendChild(commentsContainer);
             if (typeof Gitalk !== 'undefined' && Gitalk instanceof Function) {
-                renderGitalk(to.fullPath);
+                renderGitalk(decodeURIComponent(location.origin + location.pathname));
             }
         }
     }
@@ -42,7 +42,7 @@ function integrateGitalk(router) {
             admin: ['specialpointcentral'],
             id: md5(fullPath),
             title: document.title,
-            body: '文章链接：' + decodeURIComponent(location.origin + location.pathname),
+            body: '文章链接：' + fullPath,
             distractionFreeMode: false,
             language: 'zh-CN',
         });

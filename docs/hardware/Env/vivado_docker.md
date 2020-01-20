@@ -9,7 +9,9 @@ tags:
  - Vivado
 ---
 
+使用CI工具自动构建vivado项目（一）
 
+<!-- more -->
 
 ## 下载vivado二进制安装文件
 
@@ -109,3 +111,9 @@ tags:
 使用与Web Installer类似
 :::
 
+<<<<<<< HEAD
+=======
+
+
+未完待续...
+>>>>>>> ee18a5d8d23c034a19df6677984e302fcf3367bf
