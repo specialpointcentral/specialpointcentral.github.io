@@ -11,9 +11,7 @@ tags:
 
 <!-- more -->
 
-## QEMU代码结构
-
-### 文件夹结构
+## 文件夹结构
 
 ```
 /hw/ 负责仿真虚拟机上所有的虚拟硬件
@@ -21,7 +19,7 @@ tags:
 /tcg/ 负责将TCG op翻译成目标代码
 ```
 
-### 主要代码文件
+## 主要代码文件
 
 ```
 /target-xyz/translate.c: 负责guest binary -> TCG op的转换
@@ -30,7 +28,7 @@ tags:
 /cpu-exec.c: 其中的 cpu-exec() 函数负责寻找下一个TB，如果没找到则进行翻译。最后执行翻译得到的host binary
 ```
 
-### 重要结构体
+## 重要结构体
 
 ```c
 struct CPUArchState
@@ -58,17 +56,17 @@ struct CPUClass
 里面包含了CPU的类型信息，同时可以说是CPU类的一个封装，类似于父类
 内部函数通过回调的方式完成“重载”
 
-### 重要函数
+## 重要函数
 
-#### 用户模式
+### 用户模式
 
-##### 1. `main(...)`
+#### 1. `main(...)`
 
 位于 `linux-user/main.c`
 其中含有 `cpu_loop()`/`tcg_prologue_init()` / `tcg_region_init()` / `get_elf_eflags()`
 在完成相关环境配置后执行 `cpu_loop()`
 
-##### 2. `cpu_loop(CPUArchState *env)`
+#### 2. `cpu_loop(CPUArchState *env)`
 
 定义位于 `linux-user/qemu.h`，`#include "cpu.h" ` 根据条件，在 `target/xyz` 找
 声明位于 `linux-user/xyz/cpu-loop.c`
@@ -80,11 +78,11 @@ struct CPUClass
 4. 判断是否有异常等 -- `switch(trapnr)`
 5. 执行异常
 
-##### 3. `env_cpu(CPUArchState *env)`
+#### 3. `env_cpu(CPUArchState *env)`
 
 位于 `include/exec/cpu-all.h`
 
-##### 4. `cpu_exec(CPUState *cpu)`
+#### 4. `cpu_exec(CPUState *cpu)`
 
 定义位于`include/exec/cpu-all.h`
 声明位于`accel/tcg/cpu-exec.c`
@@ -96,7 +94,7 @@ struct CPUClass
 4. `tb_find()` 查找下一个TB
 5. `cpu_loop_exec_tb()` 执行TB
 
-##### 5. `tb_find()`
+#### 5. `tb_find()`
 
 位于 `accel/tcg/cpu-exec.c`
 
@@ -110,7 +108,7 @@ static inline TranslationBlock *tb_find(CPUState *cpu,
 2. `if(未找到) tb_gen_code()`，同时将翻译完成的加入`cpu->tb_jmp_cache`中
 3. 如果有上一个TB，将这个TB链接到他的后面 -- ` tb_add_jump()`
 
-##### 6. `cpu_loop_exec_tb()`
+#### 6. `cpu_loop_exec_tb()`
 
 位于 `accel/tcg/cpu-exec.c`
 
@@ -120,11 +118,9 @@ static inline void cpu_loop_exec_tb(CPUState *cpu,
                                     TranslationBlock **last_tb, int *tb_exit)
 ```
 
-> ? `trace_exec_tb()` 从何而来
+`cpu_tb_exec()` 执行一个TB
 
-1. `cpu_tb_exec()` 执行一个TB
-
-##### 7. `tb_lookup__cpu_state()`
+#### 7. `tb_lookup__cpu_state()`
 
 位于 `accel/tcg/cpu-exec.c`
 
@@ -140,7 +136,7 @@ static inline TranslationBlock *
 3. 从 `cpu->tb_jmp_cache` 获取TB，如果获取到，并且判断正确（因为可能产生hash冲突），则返回tb
 4. 如果第3步没有有效的TB，去cache里面找 -- `tb_htable_lookup()`，并且放入 `cpu->tb_jmp_cache`
 
-##### 8. `tb_gen_code()`
+#### 8. `tb_gen_code()`
 
 位于 `accel/tcg/translate-all.c`
 
@@ -151,29 +147,30 @@ TranslationBlock *tb_gen_code(CPUState *cpu,
 ```
 
 1. 分配TB空间 -- `tcg_tb_alloc(tcg_ctx)`
-
 2. 翻译成中间代码 -- `gen_intermediate_code()`
-
 3. 翻译成宿主代码 -- `tcg_gen_code()`
+4. 将TB加入到缓存中 -- `tb_link_page()`
 
-   > 这里还需要进一步查看
+#### 9. `cpu_tb_exec()`
 
-##### 9. `cpu_tb_exec()`
+位于 `accel/tcg/cpu-exec.c`
+
+```c
+static inline tcg_target_ulong cpu_tb_exec(CPUState *cpu, TranslationBlock *itb)
+```
 
 1. 执行TC --  `tcg_qemu_tb_exec()`，通过 `tb->tc.ptr` 获得TC的地址
 
 2. 根据 `ret` 进行相应操作
 
-   > 这里还需要进一步查看
-
-##### 10. `tcg_qemu_tb_exec()`
+#### 10. `tcg_qemu_tb_exec()`
 
 ```c
 #define tcg_qemu_tb_exec(env, tb_ptr) \
     ((uintptr_t (*)(void *, void *))tcg_ctx->code_gen_prologue)(env, tb_ptr)
 ```
 
-定位到 `code_gen_prologue()`
+定位到 `code_gen_prologue()`，使用 `tcg_prologue_init(tcg_ctx) -> tcg_target_qemu_prologue(s) ` 完成初始化
 
 > 位于 `tcg.c`
 >
@@ -191,13 +188,54 @@ TranslationBlock *tb_gen_code(CPUState *cpu,
 >
 > `tcg_insn_unit *code_ptr`
 
-##### 11. `tcg_tb_alloc(tcg_ctx)`
+#### 11. `tcg_tb_alloc(tcg_ctx)`
 
-##### 12. `gen_intermediate_code()`
+位于 `tcg/tcg.c`
 
-##### 13. `tcg_gen_code()`
+负责在 `code_gen_buf` 里面分配TB空间
 
-#### 系统模式
+#### 12. `gen_intermediate_code()`
+
+位于 `target/Arch/translate.c`
+
+1. 创建上下文结构 `DisasContext`
+2. 调用 `translator_loop()`进行一个块的中间代码翻译
+
+#### 13. `tcg_gen_code()`
+
+位于 `tcg/tcg.c`
+
+```c
+int tcg_gen_code(TCGContext *s, TranslationBlock *tb)
+```
+
+> 这里还需要进一步查看
+
+#### 14. `translator_loop()`
+
+位于 `accel/tcg/translator.c`
+
+```c
+void translator_loop(const TranslatorOps *ops, DisasContextBase *db,
+                    				 CPUState *cpu, TranslationBlock *tb, int max_insns)
+```
+
+其中，`TranslatorOps` 为翻译函数结构体，结构相关，内部为回调函数
+
+1.  `gen_tb_start()` // TODO: what this mean?
+
+2. 执行翻译 -- `ops->translate_insn();`
+
+3.  处理TB块满`(DISAS_TOO_MANY)`结束问题 -- `ops->tb_stop();`
+
+4. 结束TB的翻译 -- `gen_tb_end();`
+
+   1. 设置TB标签 -- `gen_set_label()`
+   2. 设置TB退出代码 -- `tcg_gen_exit_tb()`
+
+   > 此处还要研究
+
+### 系统模式
 
 ```c
 main(...)
