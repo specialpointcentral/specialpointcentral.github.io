@@ -56,17 +56,15 @@ struct CPUClass
 里面包含了CPU的类型信息，同时可以说是CPU类的一个封装，类似于父类
 内部函数通过回调的方式完成“重载”
 
-## 重要函数
+## 用户模式
 
-### 用户模式
-
-#### 1. `main(...)`
+### 1. `main(...)`
 
 位于 `linux-user/main.c`
 其中含有 `cpu_loop()`/`tcg_prologue_init()` / `tcg_region_init()` / `get_elf_eflags()`
 在完成相关环境配置后执行 `cpu_loop()`
 
-#### 2. `cpu_loop(CPUArchState *env)`
+### 2. `cpu_loop(CPUArchState *env)`
 
 定义位于 `linux-user/qemu.h`，`#include "cpu.h" ` 根据条件，在 `target/xyz` 找
 声明位于 `linux-user/xyz/cpu-loop.c`
@@ -78,11 +76,11 @@ struct CPUClass
 4. 判断是否有异常等 -- `switch(trapnr)`
 5. 执行异常
 
-#### 3. `env_cpu(CPUArchState *env)`
+### 3. `env_cpu(CPUArchState *env)`
 
 位于 `include/exec/cpu-all.h`
 
-#### 4. `cpu_exec(CPUState *cpu)`
+### 4. `cpu_exec(CPUState *cpu)`
 
 定义位于`include/exec/cpu-all.h`
 声明位于`accel/tcg/cpu-exec.c`
@@ -94,7 +92,7 @@ struct CPUClass
 4. `tb_find()` 查找下一个TB
 5. `cpu_loop_exec_tb()` 执行TB
 
-#### 5. `tb_find()`
+### 5. `tb_find()`
 
 位于 `accel/tcg/cpu-exec.c`
 
@@ -108,7 +106,7 @@ static inline TranslationBlock *tb_find(CPUState *cpu,
 2. `if(未找到) tb_gen_code()`，同时将翻译完成的加入`cpu->tb_jmp_cache`中
 3. 如果有上一个TB，将这个TB链接到他的后面 -- ` tb_add_jump()`
 
-#### 6. `cpu_loop_exec_tb()`
+### 6. `cpu_loop_exec_tb()`
 
 位于 `accel/tcg/cpu-exec.c`
 
@@ -120,7 +118,7 @@ static inline void cpu_loop_exec_tb(CPUState *cpu,
 
 `cpu_tb_exec()` 执行一个TB
 
-#### 7. `tb_lookup__cpu_state()`
+### 7. `tb_lookup__cpu_state()`
 
 位于 `accel/tcg/cpu-exec.c`
 
@@ -136,7 +134,7 @@ static inline TranslationBlock *
 3. 从 `cpu->tb_jmp_cache` 获取TB，如果获取到，并且判断正确（因为可能产生hash冲突），则返回tb
 4. 如果第3步没有有效的TB，去cache里面找 -- `tb_htable_lookup()`，并且放入 `cpu->tb_jmp_cache`
 
-#### 8. `tb_gen_code()`
+### 8. `tb_gen_code()`
 
 位于 `accel/tcg/translate-all.c`
 
@@ -151,7 +149,7 @@ TranslationBlock *tb_gen_code(CPUState *cpu,
 3. 翻译成宿主代码 -- `tcg_gen_code()`
 4. 将TB加入到缓存中 -- `tb_link_page()`
 
-#### 9. `cpu_tb_exec()`
+### 9. `cpu_tb_exec()`
 
 位于 `accel/tcg/cpu-exec.c`
 
@@ -163,7 +161,7 @@ static inline tcg_target_ulong cpu_tb_exec(CPUState *cpu, TranslationBlock *itb)
 
 2. 根据 `ret` 进行相应操作
 
-#### 10. `tcg_qemu_tb_exec()`
+### 10. `tcg_qemu_tb_exec()`
 
 ```c
 #define tcg_qemu_tb_exec(env, tb_ptr) \
@@ -188,20 +186,20 @@ static inline tcg_target_ulong cpu_tb_exec(CPUState *cpu, TranslationBlock *itb)
 >
 > `tcg_insn_unit *code_ptr`
 
-#### 11. `tcg_tb_alloc(tcg_ctx)`
+### 11. `tcg_tb_alloc(tcg_ctx)`
 
 位于 `tcg/tcg.c`
 
 负责在 `code_gen_buf` 里面分配TB空间
 
-#### 12. `gen_intermediate_code()`
+### 12. `gen_intermediate_code()`
 
 位于 `target/Arch/translate.c`
 
 1. 创建上下文结构 `DisasContext`
 2. 调用 `translator_loop()`进行一个块的中间代码翻译
 
-#### 13. `tcg_gen_code()`
+### 13. `tcg_gen_code()`
 
 位于 `tcg/tcg.c`
 
@@ -211,7 +209,7 @@ int tcg_gen_code(TCGContext *s, TranslationBlock *tb)
 
 > 这里还需要进一步查看
 
-#### 14. `translator_loop()`
+### 14. `translator_loop()`
 
 位于 `accel/tcg/translator.c`
 
@@ -235,7 +233,7 @@ void translator_loop(const TranslatorOps *ops, DisasContextBase *db,
 
    > 此处还要研究
 
-### 系统模式
+## 系统模式
 
 ```c
 main(...)
