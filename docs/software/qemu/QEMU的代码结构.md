@@ -3,7 +3,7 @@ title: QEMU的代码结构
 date: 2020-01-05 17:44:00
 sidebar: 'auto'
 categories:
- - QEMU
+ - 二进制翻译
 tags:
  - QEMU
  - 二进制翻译

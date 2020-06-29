@@ -3,7 +3,7 @@ title: 远程 GDB + VScode 调试
 date: 2020-02-27 22:04:00
 sidebar: 'auto'
 categories:
- - GDB
+ - 二进制翻译
 tags:
  - GDB
  - vscode
