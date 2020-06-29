@@ -4,8 +4,25 @@ module.exports = {
   markdown: {
     lineNumbers: true // 代码块显示行号
   },
+  locales: {
+    '/': {
+      lang: 'zh-CN'
+    }
+  },
   theme: 'reco',
   themeConfig: {
+    locales: {
+      '/': {
+        recoLocales: {
+          pagation: {
+            prev: '上一页',
+            next: '下一页',
+            go: '前往',
+            jump: '跳转至'
+          }
+        }
+      }
+    },
     head: [
       ['meta', { name: 'viewport', content: 'width=device-width,initial-scale=1,user-scalable=no' }]
     ],
@@ -35,6 +52,9 @@ module.exports = {
     huawei: false,
     // 备案号
     record: '皖ICP备17002097号-1',
+    recordLink: 'http://www.miitbeian.gov.cn/',
+    cyberSecurityRecord: '皖公网安备 34100202000165号',
+    cyberSecurityLink: 'http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=34100202000165',
     // 项目开始时间，只填写年份
     startYear: '2019',
   },
