@@ -237,7 +237,7 @@ VuePress 使用了 [Prism](https://prismjs.com/) 来为 markdown 中的代码块
 **输入**
 
 ````
-``` js
+​``` js
 export default {
   name: 'MyComponent',
   // ...
@@ -247,7 +247,7 @@ export default {
 
 **输出**
 
-``` js
+​``` js
 export default {
   name: 'MyComponent',
   // ...
@@ -257,7 +257,7 @@ export default {
 **输入**
 
 ````
-``` html
+​``` html
 <ul>
   <li
     v-for="todo in todos"
@@ -271,7 +271,7 @@ export default {
 
 **输出**
 
-``` html
+​``` html
 <ul>
   <li
     v-for="todo in todos"
@@ -290,7 +290,7 @@ export default {
 **输入**
 
 ````
-``` js {4}
+​``` js {4}
 export default {
   data () {
     return {
@@ -303,7 +303,7 @@ export default {
 
 **输出**
 
-``` js{4}
+​``` js{4}
 export default {
   data () {
     return {
@@ -326,36 +326,6 @@ module.exports = {
 ```
 
 <!-- TODO Support line numbers for specific fence block -->
-
-- 示例:
-
-<picture>
-  <source srcset="/line-numbers-desktop.png" media="(min-width: 719px)">
-  <img class="line-numbers-desktop-snap" alt="Image">
-</picture>
-
-<picture>
-  <source srcset="/line-numbers-mobile.gif" media="(max-width: 719px)">
-  <img class="line-numbers-mobile-snap" alt="Image">
-</picture>
-
-<style>
-  @media screen and (min-width:  719px) {
-    .line-numbers-mobile-snap {
-       display: none;
-    }
-  }
-  @media screen and (max-width:  719px) {
-    .line-numbers-desktop-snap {
-       display: none;
-    }
-    .line-numbers-mobile-snap {
-      max-width: none!important;
-      margin: 0 -1.5rem;
-      width: 100vw;
-    }
-  }
-</style>
 
 ### 导入代码段 <Badge text="beta" type="warn"/>
 
@@ -476,7 +446,6 @@ export default {
 **Output**
 
 <div class="language-text"><pre><code>{{ 1 + 1 }}</code></pre></div>
-
 #### 指令
 
 同样地，也可以使用指令:
@@ -490,7 +459,6 @@ export default {
 **Output**
 
 <div class="language-text"><pre><code><span v-for="i in 3">{{ i }} </span></code></pre></div>
-
 #### 访问网站以及页面的数据
 
 编译后的组件没有私有数据，但可以访问 [网站的元数据](https://vuepress.vuejs.org/zh/theme/writing-a-theme.html#网站和页面的元数据)，举例来说：
@@ -611,7 +579,6 @@ yarn add -D pug pug-plain-loader
 有时，你可以只想在当前页面应用一些 JavaScript 或者 CSS，在这种情况下，你可以直接在 Markdown 文件中使用原生的 `<script>` 或者 `<style>` 标签，它们将会从编译后的 HTML 文件中提取出来，并作为生成的 Vue 单文件组件的 `<script>` 和 `<style>` 标签。
 
 <p class="demo" :class="$style.example"></p>
-
 <style module>
 .example {
   color: #41b883;

@@ -39,7 +39,7 @@ $ file /lib/ld-2.6.so
 
 目标文件既要参与程序链接又要参与程序执行。出于方便性和效率考虑，目标文件格式提供了两种并行视图，分别反映了这些活动的不同需求。 
 
-<img src="ELF\1.png" alt="目标文件格式" style="width: 400px;" />
+<img src="./ELF/1.png" alt="目标文件格式" style="width: 400px; margin: auto;" />
 
 文件开始处是一个 ELF 头部(ELF Header)，用来描述整个文件的组织。节区部 分包含链接视图的大量信息:指令、数据、符号表、重定位信息等等。 
 
@@ -95,11 +95,11 @@ typedef struct {
 
 其中， e_ident 数组给出了 ELF 的一些标识信息，这个数组中不同下标的含义如表所示：
 
-<img src="ELF\3.png" alt="e_ident标志索引" style="width: 450px;" />
+<img src="./ELF/3.png" alt="e_ident标志索引" style="width: 450px; margin: auto;" />
 
 这些索引访问包含以下数值的字节 ：
 
-<img src="ELF\4.png" alt="索引包含字节" style="width:600px;" />
+<img src="./ELF/4.png" alt="索引包含字节" style="width:600px; margin: auto;" />
 
 e_ident[EI_MAG0]~e_ident[EI_MAG3]即e_ident[0]~e_ident[3]被称为魔数（Magic Number）,其值一般为0x7f,’E’,’L’,’F’。
 
@@ -109,7 +109,7 @@ e_ident[EI_DATA]（即e_ident[5]）：给出处理器特定数据的数据编码
 
 ELF Header 中各个字段的说明如表： 
 
-<img src="ELF\5.png" alt="ELF header各字段说明" style="width:600px;" />
+<img src="./ELF/5.png" alt="ELF header各字段说明" style="width:600px; margin: auto;" />
 
 可以通过命令`readrlf -h program`方式查看：
 
@@ -162,6 +162,7 @@ typedef struct {
 	Elf32_Word	sh_addralign;	/* address alignment */
 	Elf32_Word	sh_entsize;	/* section entry size */
 } Elf32_Shdr;
+
 typedef struct {
 	Elf64_Half	sh_name;	/* section name */
 	Elf64_Half	sh_type;	/* section type */

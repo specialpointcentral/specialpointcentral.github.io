@@ -34,7 +34,7 @@ module.exports = {
     type: 'blog',
     huawei: false,
     // 备案号
-    // record: '京ICP备17067634号-1',
+    record: '皖ICP备17002097号-1',
     // 项目开始时间，只填写年份
     startYear: '2019',
   },
