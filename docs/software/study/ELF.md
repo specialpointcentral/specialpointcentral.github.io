@@ -253,3 +253,35 @@ Key to Flags:
   l (large), p (processor specific)
 ```
 
+各个字段解释如下：
+
+<img src="./ELF/7.png" alt="段表各字段解释" style="width:600px; margin: auto;" />
+
+##### 索引为零（SHN_UNDEF）的段
+
+这个段固定为： 
+
+<img src="./ELF/8.png" alt="索引为零（SHN_UNDEF）的段" style="width:600px; margin: auto;" />
+
+##### `sh_type`字段
+
+<img src="./ELF/9.png" alt="sh_type字段" style="width:650px; margin: auto;" />
+
+##### `sh_flags` 字段
+
+`sh_flags` 字段定义了一个节区中包含的内容是否可以修改、是否可以执行等信息。 如果一个标志位被设置，则该位取值为 1。 定义的各位都设置为 0。 
+
+<img src="./ELF/10.png" alt="sh_flags字段" style="width:330px; margin: auto;" />
+
+其中已经定义了的各位含义如下:
+
+- `SHF_WRITE`: 节区包含进程执行过程中将可写的数据。
+- `SHF_ALLOC`: 此节区在进程执行过程中占用内存。某些控制节区并不出现于目标
+  文件的内存映像中，对于那些节区，此位应设置为 0。
+- `SHF_EXECINSTR`: 节区包含可执行的机器指令。
+- `SHF_MASKPROC`: 所有包含于此掩码中的四位都用于处理器专用的语义。
+
+##### `sh_link` 和 `sh_info` 字段
+
+<img src="./ELF/11.png" alt="sh_link和sh_info字段" style="width:650px; margin: auto;" />
+
