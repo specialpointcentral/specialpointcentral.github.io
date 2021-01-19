@@ -76,10 +76,10 @@ Tcache管理器维护一个SPC-TPC(source PC, target PC)映射表，类似于TLB
 - 为多处理器提供服务的能力，因为虚拟机协处理器的低缺失率
 - 不需要的时候可以关闭翻译单元，以减少功耗
 
-|                  `lookup and translation`                   |    `execution time in hit and miss case`    |
-| :---------------------------------------------------------: | :-----------------------------------------: |
-| ![lookup and translation](./pic/lookup and translation.png) | ![execution time](./pic/execution time.png) |
+|           `lookup and translation`           | `execution time in hit and miss case` |
+| :------------------------------------------: | :-----------------------------------: |
+| <img src="./pic/lookup and translation.png"> | <img src="./pic/execution time.png">  |
 
-|                           整体性能                           |        Tcache大小和失效率         |
-| :----------------------------------------------------------: | :-------------------------------: |
-| ![performance comparision](./pic/performance comparision.png) | ![miss rate](./pic/miss rate.png) |
+|                   整体性能                    |       Tcache大小和失效率        |
+| :-------------------------------------------: | :-----------------------------: |
+| <img src="./pic/performance comparision.png"> | <img src="./pic/miss rate.png"> |
