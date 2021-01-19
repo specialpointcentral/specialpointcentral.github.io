@@ -48,7 +48,7 @@ tags:
 
    选择相应的选项，完成config文件的生成，如下是一个例子：
 
-   ``` text
+   ``` shell
    #### Vivado HL WebPACK Install Configuration ####
    Edition=Vivado HL WebPACK
    

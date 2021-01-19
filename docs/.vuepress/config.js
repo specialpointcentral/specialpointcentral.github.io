@@ -23,6 +23,7 @@ module.exports = {
         }
       }
     },
+    authorAvatar: 'https://q2.qlogo.cn/headimg_dl?dst_uin=2061659986&spec=4',
     head: [
       ['meta', { name: 'viewport', content: 'width=device-width,initial-scale=1,user-scalable=no' }]
     ],
