@@ -64,4 +64,38 @@ tags:
 [^9]: Kc, G. S., Keromytis, A. D., and Prevelakis, V. 2003. "Countering code-injection attacks with instruction-set randomization." In Proceedings of the 10th ACM Conference on Computer and Communications Security (Washington D.C., USA, October 27 - 30, 2003). CCS '03. ACM, New York, NY, 272-280.
 [^10]: George Necula, "Proof-carrying code", In 24th ACM SIGPLAN-SIGACT Symposium on Principles of Programming Languages, pages 106–119, New York, January 1997. ACM Press.
 
-## 实验方式及结果
+## DBT对软件自有安全的研究
+
+### 研究结果
+
+DBT-friendly techniques
+
+- Stackshield, Propolice and Stackguard, Libsafe, address space randomization, watermarking, Sandboxing system calls, Proof-Carrying Code
+- 因为他们基本上都是静态的（少部分是装载等方面），DBT按照正常语义翻译都可以成功解决
+
+DBT-tolerable techniques
+
+- Self-checksum
+- 因为DBT一般引用的是原始代码，自校验的都是原始代码
+- 但可能存在某些DBT为了优化对部分原始代码进行了修改，但这容易解决
+
+DBT-troublesome techniques
+
+- code obsfucation, code morphing: 可能会因为DBT而失去作用，但其实问题不大
+- anti-debugging: 基于时间的其实也问题不大，因为正常运行可能会经历中断、上下文切换，至少翻译后执行不会很差
+- Authenticated system call: 在运行时可能使用可信的系统调用替换原来的调用，此时由于code cache导致不成功
+- Instruction set randomization: 主要是硬件问题，DBT需要让硬件解密，这意味着“必须信任DBT才能看到解密的代码，甚至能够访问用于解密的密钥”
+
+### 总结
+
+1. 静态的安全措施DBT都能比较好的解决
+1. 如果代码检查由外部的程序负责，则有一定问题
+1. 加密的代码也有可能会让DBT无法识别
+
+## DBT自身安全研究
+
+用户态的DBT事实上code cache没有被保护。
+
+- 放入内核部分，以获得操作系统的权限
+- 集成进固件、操作系统
+- 使用硬件保护--TPM、SP(Secret Protection)
