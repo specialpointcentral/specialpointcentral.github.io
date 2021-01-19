@@ -60,16 +60,33 @@ module.exports = {
   },
   plugins: [
     ['@vuepress/nprogress'],
-    // ['@vuepress-reco/comments', {
-    //   solution: 'vuess',
-    //   options: {
-    //     title: 'vuepress-theme-reco',
-    //     platform: 'github-v4',
-    //     owner: 'specialpointcentral',
-    //     repo: 'specialpointcentral.github.io',
-    //     clientId: 'bafa9288f91f1259ba98',
-    //     clientSecret: '3f81ac450bbbb87a6dd22207b31b96393fefa58c',
-    //   }
-    // }]
+    ['md-enhance',
+      {
+        // 启用下角标功能
+        sub: true,
+        // 启用上角标
+        sup: true,
+        // 启用脚注
+        footnote: true,
+        // 启用 TeX 支持
+        tex: true,
+        // 启用代码演示
+        demo: true,
+      },
+    ],
+    ['@vuepress-reco/comments', 
+      {
+        solution: 'valine',
+        options: {
+          appId: 'KDS8Gw5GGqVsGP3T3cpbeHC7-9Nh9j0Va',
+          appKey: 'jEGFwkHO4yBzgB7v95gxEgYN',
+          placeholder: '留个脚印吧',
+          avatar: 'mp',
+          recordIP: 'true',
+          enableQQ: 'true',
+          visitor: true,
+        }
+      }
+    ]
   ]
 }

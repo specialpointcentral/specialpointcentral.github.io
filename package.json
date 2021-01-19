@@ -1,14 +1,16 @@
 {
   "devDependencies": {
-    "@vuepress/plugin-nprogress": "^1.0.0-rc.1",
-    "vuepress": "^1.2.0"
+    "@mr-hope/vuepress-utils": "^1.8.1",
+    "@vuepress/plugin-nprogress": "^1.8.0",
+    "vuepress": "^1.8.0",
+    "vuepress-plugin-md-enhance": "^1.8.1"
   },
   "scripts": {
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs"
   },
   "dependencies": {
-    "md5": "^2.2.1",
-    "vuepress-theme-reco": "^1.1.1"
+    "md5": "^2.3.0",
+    "vuepress-theme-reco": "^1.6.1"
   }
 }
